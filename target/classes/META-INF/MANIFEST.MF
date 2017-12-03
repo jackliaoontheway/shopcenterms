@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Implementation-Title: shopcenterms
 Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: jack
+Built-By: ldhOn
 Implementation-Vendor-Id: com.noone
-Build-Jdk: 1.8.0_151
+Build-Jdk: 1.8.0_152
 Implementation-URL: http://projects.spring.io/spring-boot/shopcenterms
  /
 Created-By: Maven Integration for Eclipse
