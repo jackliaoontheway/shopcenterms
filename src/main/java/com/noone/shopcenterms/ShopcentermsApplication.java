@@ -10,14 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class ShopcentermsApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ShopcentermsApplication.class, args);
+		SpringApplication.run(ShopcentermsApplication.class, args); 
 	}
-	
-	@RequestMapping("/")
-	public String hello() {
-		System.out.println("hello");
-		return "hello world!";
-	}
-	
-	
 }

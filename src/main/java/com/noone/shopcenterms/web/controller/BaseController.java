@@ -1,4 +1,4 @@
-package com.noone.shopcenterms.controller;
+package com.noone.shopcenterms.web.controller;
 
 import java.io.BufferedInputStream;
 import java.io.File;

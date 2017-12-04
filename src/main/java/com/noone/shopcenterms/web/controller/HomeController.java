@@ -1,12 +1,10 @@
-package com.noone.shopcenterms.controller;
-
-import java.util.List;
+package com.noone.shopcenterms.web.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.noone.shopcenterms.domain.Account;
-import com.rfid.reader.RFIDfactory;
+
 
 @RestController
 public class HomeController extends BaseController {
@@ -28,11 +26,11 @@ public class HomeController extends BaseController {
 		account.setAccountStatus("status");
 		
 //		
-		RFIDfactory factory = RFIDfactory.getInstance();
-		List<String> list = factory.readAllRFID("COM3");
-		
-		System.out.println(list);
-		
+//		RFIDfactory factory = RFIDfactory.getInstance();
+//		List<String> list = factory.readAllRFID("COM3");
+//		
+//		System.out.println(list);
+//		
 		return "hello world !";
 	}
 	
