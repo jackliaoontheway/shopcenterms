@@ -29,8 +29,6 @@ public class ProductController extends BaseController {
 		Product dbProduct = new Product();
 		BeanUtils.copyProperties(product, dbProduct);
 		
-		
-		
 		bizProductService.addProduct(dbProduct);
 		
 		return product;
@@ -38,7 +36,6 @@ public class ProductController extends BaseController {
 	
 	@GetMapping("/list")
 	public @ResponseBody List<Product> list() {
-		System.out.println("*-*-*-----------------------------------------------------------------------------");
 		return bizProductService.listAllProduct();
 	}
 	
