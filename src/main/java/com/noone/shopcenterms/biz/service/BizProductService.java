@@ -8,5 +8,5 @@ public interface BizProductService {
 	
 	Product addProduct(Product product);
 	
-	List<Product> listAllProduct();
+	List<Product> listProductByCriteria(Product productCriteria,Integer pageIndex,Integer pageSize);
 }

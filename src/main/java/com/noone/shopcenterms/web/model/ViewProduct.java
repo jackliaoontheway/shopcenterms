@@ -6,6 +6,7 @@ import lombok.Data;
 public class ViewProduct {
 
 	private Long id; 
+	private String sku;
 	private String name;
 	private String composition;
 	private String produceCompany;
@@ -13,6 +14,9 @@ public class ViewProduct {
 	private String companyCode;
 	private String price;
 	private String expiredDate;
+	
+	private Integer pageIndex;
+	private Integer pageSize;
 	
 	
 }

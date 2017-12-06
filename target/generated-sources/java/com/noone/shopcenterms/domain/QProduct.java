@@ -43,6 +43,8 @@ public class QProduct extends EntityPathBase<Product> {
 
     public final StringPath produceCompany = createString("produceCompany");
 
+    public final StringPath sku = createString("sku");
+
     public QProduct(String variable) {
         super(Product.class, forVariable(variable));
     }

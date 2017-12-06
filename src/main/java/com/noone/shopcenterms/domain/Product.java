@@ -11,7 +11,7 @@ import java.util.Date;
 @Entity
 public class Product {
 
-
+	private String sku;
 	private String name;
 	private String composition;
 	private String produceCompany;

@@ -34,9 +34,11 @@ public class ProductController extends BaseController {
 		return product;
 	}
 	
-	@GetMapping("/list")
-	public @ResponseBody List<Product> list() {
-		return bizProductService.listAllProduct();
+	@PostMapping("/listbycriteria")
+	public @ResponseBody List<Product> listbycriteria(@RequestBody ViewProduct product) {
+		Product dbProduct = new Product();
+		BeanUtils.copyProperties(product, dbProduct);
+		return bizProductService.listProductByCriteria(dbProduct,product.getPageIndex(),product.getPageSize());
 	}
 	
 	
