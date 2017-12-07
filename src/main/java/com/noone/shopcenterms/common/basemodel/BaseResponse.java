@@ -6,7 +6,9 @@ import java.util.List;
 
 import com.noone.shopcenterms.common.basemodel.ErrorInfo.SEVERITY;
 
+import lombok.Data;
 
+@Data
 public abstract class BaseResponse<T>
 {
     private List<ErrorInfo> errors;
@@ -133,30 +135,6 @@ public abstract class BaseResponse<T>
             res += "]";
         }
         return res;
-    }
-
-    public T getData()
-    {
-        return data;
-    }
-
-    public void setData(T data)
-    {
-        this.data = data;
-    }
-
-    @Override
-    public String toString()
-    {
-        String res = "";
-        if (data != null)
-        {
-            res += "data=" + data.toString();
-        }
-        res += " errors=" + getErrorsToString();
-
-        return this.getClass().getSimpleName() + " [" + res + "]";
-
     }
 
 }

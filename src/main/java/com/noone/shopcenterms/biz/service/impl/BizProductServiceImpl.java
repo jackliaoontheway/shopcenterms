@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.mysql.jdbc.StringUtils;
 import com.noone.shopcenterms.biz.service.BizProductService;
+import com.noone.shopcenterms.common.basemodel.BizPageableResponse;
 import com.noone.shopcenterms.domain.Product;
 import com.noone.shopcenterms.domain.ProductRepository;
 import com.noone.shopcenterms.domain.QProduct;
@@ -27,31 +28,44 @@ public class BizProductServiceImpl implements BizProductService {
 		return productRepository.save(product);
 	}
 
-
 	@Override
-	public List<Product> listProductByCriteria(Product productCriteria,Integer pageIndex,Integer pageSize) {
-		
-		BooleanExpression predicate = null;
-		if(!StringUtils.isNullOrEmpty(productCriteria.getSku())) {
-			predicate = QProduct.product.sku.eq(productCriteria.getSku());
-		}
-		if(!StringUtils.isNullOrEmpty(productCriteria.getName())) {
-			predicate.and(QProduct.product.name.eq(productCriteria.getName()));
-		}
-		
-		QPageRequest pageable = new QPageRequest(pageIndex,pageSize);
+	public BizPageableResponse<List<Product>> listProductByCriteria(Product productCriteria, Integer pageIndex,
+			Integer pageSize) {
 
-		Iterable<Product> iterable = productRepository.findAll(predicate,pageable);
-		
+		BizPageableResponse<List<Product>> bizResp = new BizPageableResponse<List<Product>>();
+
+		BooleanExpression predicate = null;
+		if (!StringUtils.isNullOrEmpty(productCriteria.getSku())) {
+			predicate = QProduct.product.sku.like("%" + productCriteria.getSku() + "%");
+		}
+		if (!StringUtils.isNullOrEmpty(productCriteria.getName())) {
+			if (predicate == null) {
+				predicate = QProduct.product.name.like("%" + productCriteria.getName() + "%");
+			} else {
+				predicate.and(QProduct.product.name.like("%" + productCriteria.getName() + "%"));
+			}
+		}
+
+		Iterable<Product> iterable = null;
+		if (pageIndex != null && pageSize != null) {
+			QPageRequest pageable = new QPageRequest(pageIndex, pageSize);
+			iterable = productRepository.findAll(predicate, pageable);
+		} else {
+			iterable = productRepository.findAll(predicate);
+		}
+
 		Long count = productRepository.count(predicate);
-		
+
 		Iterator<Product> iterator = iterable.iterator();
 
 		List<Product> list = new ArrayList<>();
 		while (iterator.hasNext())
 			list.add(iterator.next());
 
-		return list;
+		bizResp.setData(list);
+		bizResp.setTotalCount(count);
+
+		return bizResp;
 	}
 
 }
