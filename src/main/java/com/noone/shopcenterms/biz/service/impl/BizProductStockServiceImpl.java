@@ -6,12 +6,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.mysql.jdbc.StringUtils;
 import com.noone.shopcenterms.biz.service.BizProductStockService;
 import com.noone.shopcenterms.common.basemodel.BizResponse;
 import com.noone.shopcenterms.domain.ProductStock;
 import com.noone.shopcenterms.domain.ProductStockRepository;
-import com.noone.shopcenterms.domain.QProduct;
 import com.noone.shopcenterms.domain.QProductStock;
 import com.querydsl.core.types.Predicate;
 import com.rfid.reader.RFIDfactory;
@@ -23,9 +21,9 @@ public class BizProductStockServiceImpl implements BizProductStockService {
 	ProductStockRepository productStockRepository;
 
 	@Override
-	public BizResponse<Integer> addProductStock(ProductStock product, Integer labelCount) {
+	public BizResponse<Boolean> addProductStock(ProductStock product, Integer labelCount) {
 
-		BizResponse<Integer> bizResp = new BizResponse<Integer>();
+		BizResponse<Boolean> bizResp = new BizResponse<Boolean>();
 
 		RFIDfactory factory = RFIDfactory.getInstance();
 		List<String> list = factory.readAllRFID("COM3");
@@ -63,8 +61,8 @@ public class BizProductStockServiceImpl implements BizProductStockService {
 				result++;
 			}
 		}
-
-		bizResp.setData(result);
+		
+		bizResp.setData(result == labelCount);
 		return bizResp;
 	}
 

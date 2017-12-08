@@ -43,23 +43,28 @@ public class ProductController extends BaseController {
 	}
 
 	@PostMapping("/readrfid")
-	public @ResponseBody ServerResponse<Integer> readRFID(@RequestBody ViewProduct product) {
-		
-		ServerResponse<Integer> serverResponse = new ServerResponse<Integer>();
+	public @ResponseBody ServerResponse<String> readRFID(@RequestBody ViewProduct viewProduct) {
+
+		ServerResponse<String> serverResponse = new ServerResponse<String>();
 
 		ProductStock dbProductStock = new ProductStock();
-		dbProductStock.setSku(product.getSku());
-		dbProductStock.setProduceDate(product.getProduceDate());
-		dbProductStock.setPrice(product.getPrice());
-		
-		BizResponse<Integer> bizResp = bizProductStockService.addProductStock(dbProductStock, product.getLabelCount());
-		
+		dbProductStock.setSku(viewProduct.getSku());
+		dbProductStock.setProduceDate(viewProduct.getProduceDate());
+		dbProductStock.setPrice(viewProduct.getPrice());
+
+		BizResponse<Boolean> bizResp = bizProductStockService.addProductStock(dbProductStock,
+				viewProduct.getLabelCount());
+
 		if (bizResp.hasError()) {
 			serverResponse.setErrors(bizResp.getErrors());
 		} else {
-			serverResponse.setData(bizResp.getData());
+			Product dbProduct = new Product();
+			BeanUtils.copyProperties(viewProduct, dbProduct);
+			BizResponse<String> bizCreateLableResp = bizProductService.createProductlabel(dbProduct,
+					viewProduct.getPrice(), viewProduct.getProduceDate(), viewProduct.getLabelCount());
+			serverResponse.setData(bizCreateLableResp.getData());
 		}
-		
+
 		return serverResponse;
 	}
 

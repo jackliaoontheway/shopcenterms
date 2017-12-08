@@ -19,10 +19,12 @@ com\noone\shopcenterms\domain\ProductRepository.class
 com\noone\shopcenterms\domain\Account.class
 com\noone\shopcenterms\common\basemodel\ServerResponse.class
 com\noone\shopcenterms\biz\service\BizProductStockService.class
+com\noone\shopcenterms\biz\service\impl\ProductLabelFactory.class
 com\noone\shopcenterms\common\GenerateModelAndRepository.class
 com\noone\shopcenterms\web\controller\BaseController.class
 com\noone\shopcenterms\common\basemodel\ClientRequest.class
 com\noone\shopcenterms\common\basemodel\CorsConfig.class
+com\noone\shopcenterms\biz\service\impl\ProductLabel.class
 com\noone\shopcenterms\domain\ProductStockRepository.class
 com\noone\shopcenterms\ShopcentermsApplication.class
 com\noone\shopcenterms\common\basemodel\BizResponse.class

@@ -4,6 +4,7 @@ C:\projects\shopcenterms\src\main\java\com\noone\shopcenterms\common\basemodel\C
 C:\projects\shopcenterms\src\main\java\com\noone\shopcenterms\common\basemodel\ClientRequest.java
 C:\projects\shopcenterms\src\main\java\com\noone\shopcenterms\common\basemodel\ServerPageableResponse.java
 C:\projects\shopcenterms\src\main\java\com\noone\shopcenterms\common\basemodel\ServerResponse.java
+C:\projects\shopcenterms\src\main\java\com\noone\shopcenterms\biz\service\impl\ProductLabel.java
 C:\projects\shopcenterms\target\generated-sources\java\com\noone\shopcenterms\domain\QProductStock.java
 C:\projects\shopcenterms\src\main\java\com\noone\shopcenterms\domain\AccountRepository.java
 C:\projects\shopcenterms\src\main\java\com\noone\shopcenterms\domain\Account.java
@@ -11,6 +12,7 @@ C:\projects\shopcenterms\target\generated-sources\java\com\noone\shopcenterms\do
 C:\projects\shopcenterms\src\main\java\com\noone\shopcenterms\web\controller\HomeController.java
 C:\projects\shopcenterms\src\main\java\com\noone\shopcenterms\common\basemodel\Constant.java
 C:\projects\shopcenterms\src\main\java\com\noone\shopcenterms\domain\ProductRepository.java
+C:\projects\shopcenterms\src\main\java\com\noone\shopcenterms\biz\service\impl\ProductLabelFactory.java
 C:\projects\shopcenterms\src\main\java\com\noone\shopcenterms\ShopcentermsApplication.java
 C:\projects\shopcenterms\src\main\java\com\noone\shopcenterms\domain\ProductStock.java
 C:\projects\shopcenterms\src\main\java\com\noone\shopcenterms\biz\service\impl\BizProductStockServiceImpl.java
