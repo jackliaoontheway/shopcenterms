@@ -12,7 +12,7 @@ public class GenerateModelAndRepository {
 
 	public static void main(String[] args) throws Exception {
 
-		new GenerateModelAndRepository().generate("Product", true);
+		new GenerateModelAndRepository().generate("ProductStock", true);
 
 	}
 

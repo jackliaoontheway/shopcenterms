@@ -15,6 +15,9 @@ public class ViewProduct {
 	private String price;
 	private String expiredDate;
 	
+	private String produceDate;
+	private Integer labelCount;
+	
 	private Integer pageIndex;
 	private Integer pageSize;
 	

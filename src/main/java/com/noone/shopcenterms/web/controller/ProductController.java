@@ -11,10 +11,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.noone.shopcenterms.biz.service.BizProductService;
+import com.noone.shopcenterms.biz.service.BizProductStockService;
 import com.noone.shopcenterms.common.basemodel.BizPageableResponse;
+import com.noone.shopcenterms.common.basemodel.BizResponse;
 import com.noone.shopcenterms.common.basemodel.ServerPageableResponse;
+import com.noone.shopcenterms.common.basemodel.ServerResponse;
 import com.noone.shopcenterms.domain.Product;
+import com.noone.shopcenterms.domain.ProductStock;
 import com.noone.shopcenterms.web.model.ViewProduct;
+import com.rfid.reader.RFIDfactory;
 
 @RestController
 @RequestMapping("/shopcenterms/product")
@@ -22,6 +27,9 @@ public class ProductController extends BaseController {
 
 	@Autowired
 	BizProductService bizProductService;
+
+	@Autowired
+	BizProductStockService bizProductStockService;
 
 	@PostMapping("/add")
 	public @ResponseBody ViewProduct add(@RequestBody ViewProduct product) {
@@ -32,6 +40,27 @@ public class ProductController extends BaseController {
 		bizProductService.addProduct(dbProduct);
 
 		return product;
+	}
+
+	@PostMapping("/readrfid")
+	public @ResponseBody ServerResponse<Integer> readRFID(@RequestBody ViewProduct product) {
+		
+		ServerResponse<Integer> serverResponse = new ServerResponse<Integer>();
+
+		ProductStock dbProductStock = new ProductStock();
+		dbProductStock.setSku(product.getSku());
+		dbProductStock.setProduceDate(product.getProduceDate());
+		dbProductStock.setPrice(product.getPrice());
+		
+		BizResponse<Integer> bizResp = bizProductStockService.addProductStock(dbProductStock, product.getLabelCount());
+		
+		if (bizResp.hasError()) {
+			serverResponse.setErrors(bizResp.getErrors());
+		} else {
+			serverResponse.setData(bizResp.getData());
+		}
+		
+		return serverResponse;
 	}
 
 	@PostMapping("/listbycriteria")
