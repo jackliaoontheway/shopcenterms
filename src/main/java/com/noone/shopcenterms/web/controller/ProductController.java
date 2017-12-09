@@ -2,8 +2,11 @@ package com.noone.shopcenterms.web.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +22,6 @@ import com.noone.shopcenterms.common.basemodel.ServerResponse;
 import com.noone.shopcenterms.domain.Product;
 import com.noone.shopcenterms.domain.ProductStock;
 import com.noone.shopcenterms.web.model.ViewProduct;
-import com.rfid.reader.RFIDfactory;
 
 @RestController
 @RequestMapping("/shopcenterms/product")
@@ -30,6 +32,8 @@ public class ProductController extends BaseController {
 
 	@Autowired
 	BizProductStockService bizProductStockService;
+	
+	private String labelpath = "C:/labels/";
 
 	@PostMapping("/add")
 	public @ResponseBody ViewProduct add(@RequestBody ViewProduct product) {
@@ -84,5 +88,30 @@ public class ProductController extends BaseController {
 		return serverResp;
 
 	}
+
+	@PostMapping("/listproductstockbycriteria")
+	public @ResponseBody ServerPageableResponse<List<Product>> listproductstockbycriteria(@RequestBody ViewProduct product) {
+		Product dbProduct = new Product();
+		BeanUtils.copyProperties(product, dbProduct);
+		
+		ServerPageableResponse<List<Product>> serverResp = new ServerPageableResponse<List<Product>>();
+		
+		BizPageableResponse<List<Product>> bizResp = bizProductService.listProductByCriteria(dbProduct,
+				product.getPageIndex(), product.getPageSize());
+		
+		serverResp.setData(bizResp.getData());
+		serverResp.setTotalCount(bizResp.getTotalCount());
+		
+		return serverResp;
+		
+	}
+	
+	@GetMapping("/downloadlabels")
+	public @ResponseBody Void downloadlabels(HttpServletResponse response , String downloadId) {
+		sendPdfFileToPage(labelpath,downloadId,response);
+		return null;
+	}
+	
+	
 
 }

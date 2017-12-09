@@ -39,16 +39,16 @@ public class ProductLabelFactory {
 	}
 
 	public String createProductLabel(ProductLabel productlabel,int count, String path) {
-
+		String fileName = "";
 		try {
 			File tempFile = File.createTempFile("product", ".pdf", new File(path));
-			path = tempFile.getAbsolutePath();
+			fileName = tempFile.getName();
 			generatePDF(productlabel,count, tempFile.getAbsolutePath(), 1, 1, 16f, 16f, 190f, 8.5f,
 					new Rectangle(Float.parseFloat("283.5"), Float.parseFloat("198.45")));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return path;
+		return fileName;
 	}
 
 	private void generatePDF(ProductLabel productLabel ,int count, String pdfPath, int columns, int rows, float padding, float spacing,
