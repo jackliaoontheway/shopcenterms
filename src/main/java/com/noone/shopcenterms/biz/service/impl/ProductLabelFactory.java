@@ -4,26 +4,24 @@ import java.awt.Color;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-import org.springframework.util.StringUtils;
-
-import com.lowagie.text.Cell;
-import com.lowagie.text.Chunk;
-import com.lowagie.text.Document;
-import com.lowagie.text.Element;
-import com.lowagie.text.Font;
-import com.lowagie.text.FontFactory;
-import com.lowagie.text.PageSize;
-import com.lowagie.text.Paragraph;
-import com.lowagie.text.Rectangle;
-import com.lowagie.text.Table;
-import com.lowagie.text.pdf.Barcode128;
-import com.lowagie.text.pdf.PdfContentByte;
-import com.lowagie.text.pdf.PdfWriter;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 
 public class ProductLabelFactory {
+	
+
 
 	private static ProductLabelFactory FACTORY_INSTANCE = null;
 
@@ -43,16 +41,16 @@ public class ProductLabelFactory {
 		try {
 			File tempFile = File.createTempFile("product", ".pdf", new File(path));
 			fileName = tempFile.getName();
-			generatePDF(productlabel,count, tempFile.getAbsolutePath(), 1, 1, 16f, 16f, 190f, 8.5f,
-					new Rectangle(Float.parseFloat("283.5"), Float.parseFloat("198.45")));
+			generatePDF(productlabel,count, tempFile.getAbsolutePath(),
+					new Rectangle(Float.parseFloat("288.5"), Float.parseFloat("198.45")));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 		return fileName;
 	}
 
-	private void generatePDF(ProductLabel productLabel ,int count, String pdfPath, int columns, int rows, float padding, float spacing,
-			float width, float fontSize, com.lowagie.text.Rectangle rect) {
+	private void generatePDF(ProductLabel productLabel ,int count, String pdfPath,Rectangle rect) {
 		Document document = new Document(PageSize.A4, 0, 0, 0, 0);
 		if (rect != null) {
 			document.setPageSize(rect);
@@ -61,38 +59,22 @@ public class ProductLabelFactory {
 			PdfWriter arg = PdfWriter.getInstance(document, new FileOutputStream(pdfPath));
 			document.open();
 			document.newPage();
-			Table table = new Table(columns, rows);
-			table.setWidth(width);
-			// table.setBorderWidth(Element.ALIGN_CENTER);// 测试用
-			table.setBorderColor(new Color(255, 255, 255));
-			table.setPadding(padding);
-			table.setSpacing(spacing);
+			
+			PdfPTable table = new PdfPTable(1); // 1 columns.
+            table.setWidthPercentage(100); // Width 100%
+            table.setSpacingBefore(0f); // Space before table
+            table.setSpacingAfter(0f);
 
 			for (int i =0; i < count; i ++) {
-
-				Paragraph nameG = getParagraph(fontSize, productLabel.getName());
-				Paragraph compositionG = getParagraph(fontSize, productLabel.getComposition());
-				Paragraph produceG = getParagraph(fontSize, productLabel.getProduceDate());
-				Paragraph expireG = getParagraph(fontSize, productLabel.getExpiredDate());
-				Paragraph produceCompanyG = getParagraph(fontSize, productLabel.getProduceCompany());
-				Paragraph companyCodeG = getParagraph(fontSize, productLabel.getCompanyCode());
-				Paragraph companyMobileG = getParagraph(fontSize, productLabel.getCompanyMobile());
-				Paragraph priceG = getParagraph(fontSize, productLabel.getPrice());
 				
-				Cell cell = new Cell();
-				cell.add(nameG);
-				cell.add(compositionG);
-				cell.add(produceG);
-				cell.add(expireG);
-				cell.add(produceCompanyG);
-				cell.add(companyCodeG);
-				cell.add(companyMobileG);
-				cell.add(priceG);
-				cell.setBorderColor(new Color(255, 255, 255));
-				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-				cell.setVerticalAlignment(Element.ALIGN_CENTER);
+				Paragraph paragraph = getParagraph(productLabel);
 				
-				table.addCell(cell);
+				PdfPCell cell1 = new PdfPCell(paragraph);
+				cell1.setBorderColor(new BaseColor(255, 255, 255));
+//				cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
+//	            cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				
+				table.addCell(cell1);
 				
 			}
 			document.add(table);
@@ -104,16 +86,55 @@ public class ProductLabelFactory {
 		}
 	}
 
-	private Paragraph getParagraph(float fontSize, String num1) {
+	private Paragraph getParagraph(ProductLabel productLabel) throws DocumentException, IOException {
 		// 拼文字
-		Font toFont = FontFactory.getFont(FontFactory.COURIER);
-		toFont.setSize(fontSize);
-		Paragraph bunum = new Paragraph();
-		Chunk chunk1 = new Chunk(num1);
-		chunk1.setFont(toFont);
-		bunum.add(chunk1);
-		return bunum;
+		
+		BaseFont bf = BaseFont.createFont( "C://Windows//Fonts//simsun.ttc,1" , BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+		Font fontHead = new Font(bf);  
+		fontHead.setSize(16f);
+		fontHead.setStyle("Blod");
+		
+		Font font = new Font(bf);  
+		font.setSize(10f);
+		
+		
+		Paragraph paragraph = new Paragraph();
+		Chunk chunk0 = new Chunk(" 产品名称: " +productLabel.getName() +"\n\n");
+		chunk0.setFont(fontHead);
+		paragraph.add(chunk0);
+		
+		Chunk chunk1 = new Chunk(" 产品主成分: " +productLabel.getComposition() +"\n\n");
+		chunk1.setFont(font);
+		paragraph.add(chunk1);
+		
+		Chunk chunk2 = new Chunk(" 生产日期: " +productLabel.getProduceDate() +"\n\n");
+		chunk2.setFont(font);
+		paragraph.add(chunk2);
+		
+		Chunk chunk3 = new Chunk(" 尝鲜期: " +productLabel.getExpiredDate() +"\n\n");
+		chunk3.setFont(font);
+		paragraph.add(chunk3);
+		
+		Chunk chunk4 = new Chunk(" 生产商: " +productLabel.getProduceCompany() +"\n\n");
+		chunk4.setFont(font);
+		paragraph.add(chunk4);
+		
+		Chunk chunk5 = new Chunk(" 食品经营许可证: " +productLabel.getCompanyCode() +"\n\n");
+		chunk5.setFont(font);
+		paragraph.add(chunk5);
+		
+		Chunk chunk6 = new Chunk(" 拎包加盟热线: " +productLabel.getCompanyMobile() +"\n\n");
+		chunk6.setFont(font);
+		paragraph.add(chunk6);
+		
+		Chunk chunk7 = new Chunk(" 售价 ￥  " +productLabel.getPrice());
+		chunk7.setFont(fontHead);
+		paragraph.add(chunk7);
+		
+		return paragraph;
 	}
 
 
+
+	
 }

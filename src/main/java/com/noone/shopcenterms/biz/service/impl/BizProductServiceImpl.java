@@ -84,4 +84,12 @@ public class BizProductServiceImpl implements BizProductService {
 		return bizResp;
 	}
 
+	@Override
+	public BizResponse<Boolean> deleteProduct(Product dbProduct) {
+		BizResponse<Boolean> bizResp = new BizResponse<Boolean>();
+		productRepository.delete(dbProduct.getId());
+		bizResp.setData(true);
+		return bizResp;
+	}
+
 }

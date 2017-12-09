@@ -26,7 +26,7 @@ public class BizProductStockServiceImpl implements BizProductStockService {
 		BizResponse<Boolean> bizResp = new BizResponse<Boolean>();
 
 		RFIDfactory factory = RFIDfactory.getInstance();
-		List<String> list = factory.readAllRFID("COM3");
+		List<String> list = factory.readAllRFID("COM4");
 
 		if (list == null || labelCount == null) {
 			bizResp.addError("感应失败,请检查机器.");

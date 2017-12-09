@@ -32,7 +32,7 @@ public class ProductController extends BaseController {
 
 	@Autowired
 	BizProductStockService bizProductStockService;
-	
+
 	private String labelpath = "C:/labels/";
 
 	@PostMapping("/add")
@@ -45,11 +45,28 @@ public class ProductController extends BaseController {
 
 		return product;
 	}
+	
+	@PostMapping("/delete")
+	public @ResponseBody ServerResponse<Boolean> delete(@RequestBody ViewProduct product) {
+		ServerResponse<Boolean> serverResponse = new ServerResponse<Boolean>();
+		Product dbProduct = new Product();
+		BeanUtils.copyProperties(product, dbProduct);
+
+		BizResponse<Boolean> bizResp = bizProductService.deleteProduct(dbProduct);
+		serverResponse.setData(bizResp.getData());
+		return serverResponse;
+	}
 
 	@PostMapping("/readrfid")
 	public @ResponseBody ServerResponse<String> readRFID(@RequestBody ViewProduct viewProduct) {
 
 		ServerResponse<String> serverResponse = new ServerResponse<String>();
+
+		viewProduct.getProduceDate();
+		String convertedDate = "";
+		int index = viewProduct.getProduceDate().indexOf("T");
+		convertedDate = viewProduct.getProduceDate().substring(0, index);
+		viewProduct.setProduceDate(convertedDate);
 
 		ProductStock dbProductStock = new ProductStock();
 		dbProductStock.setSku(viewProduct.getSku());
@@ -90,28 +107,27 @@ public class ProductController extends BaseController {
 	}
 
 	@PostMapping("/listproductstockbycriteria")
-	public @ResponseBody ServerPageableResponse<List<Product>> listproductstockbycriteria(@RequestBody ViewProduct product) {
+	public @ResponseBody ServerPageableResponse<List<Product>> listproductstockbycriteria(
+			@RequestBody ViewProduct product) {
 		Product dbProduct = new Product();
 		BeanUtils.copyProperties(product, dbProduct);
-		
+
 		ServerPageableResponse<List<Product>> serverResp = new ServerPageableResponse<List<Product>>();
-		
+
 		BizPageableResponse<List<Product>> bizResp = bizProductService.listProductByCriteria(dbProduct,
 				product.getPageIndex(), product.getPageSize());
-		
+
 		serverResp.setData(bizResp.getData());
 		serverResp.setTotalCount(bizResp.getTotalCount());
-		
+
 		return serverResp;
-		
+
 	}
-	
+
 	@GetMapping("/downloadlabels")
-	public @ResponseBody Void downloadlabels(HttpServletResponse response , String downloadId) {
-		sendPdfFileToPage(labelpath,downloadId,response);
+	public @ResponseBody Void downloadlabels(HttpServletResponse response, String downloadId) {
+		sendPdfFileToPage(labelpath, downloadId, response);
 		return null;
 	}
-	
-	
 
 }
