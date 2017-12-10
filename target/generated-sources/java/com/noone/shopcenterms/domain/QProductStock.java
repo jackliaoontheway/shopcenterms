@@ -29,6 +29,8 @@ public class QProductStock extends EntityPathBase<ProductStock> {
 
     public final DateTimePath<java.util.Date> modifiedDate = createDateTime("modifiedDate", java.util.Date.class);
 
+    public final StringPath name = createString("name");
+
     public final StringPath price = createString("price");
 
     public final StringPath produceDate = createString("produceDate");

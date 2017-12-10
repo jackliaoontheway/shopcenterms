@@ -12,9 +12,11 @@ import java.util.Date;
 public class ProductStock {
 
 	private String sku;
+	private String name;
 	private String produceDate;
 	private String price;
 	private String rfid;
+	private String status;
 
 	// -------------Auto generated start (Fri Dec 08 21:21:12 CST 2017)-------------//
 

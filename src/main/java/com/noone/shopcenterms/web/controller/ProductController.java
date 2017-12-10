@@ -45,7 +45,7 @@ public class ProductController extends BaseController {
 
 		return product;
 	}
-	
+
 	@PostMapping("/delete")
 	public @ResponseBody ServerResponse<Boolean> delete(@RequestBody ViewProduct product) {
 		ServerResponse<Boolean> serverResponse = new ServerResponse<Boolean>();
@@ -62,14 +62,9 @@ public class ProductController extends BaseController {
 
 		ServerResponse<String> serverResponse = new ServerResponse<String>();
 
-		viewProduct.getProduceDate();
-		String convertedDate = "";
-		int index = viewProduct.getProduceDate().indexOf("T");
-		convertedDate = viewProduct.getProduceDate().substring(0, index);
-		viewProduct.setProduceDate(convertedDate);
-
 		ProductStock dbProductStock = new ProductStock();
 		dbProductStock.setSku(viewProduct.getSku());
+		dbProductStock.setName(viewProduct.getName());
 		dbProductStock.setProduceDate(viewProduct.getProduceDate());
 		dbProductStock.setPrice(viewProduct.getPrice());
 
@@ -107,14 +102,14 @@ public class ProductController extends BaseController {
 	}
 
 	@PostMapping("/listproductstockbycriteria")
-	public @ResponseBody ServerPageableResponse<List<Product>> listproductstockbycriteria(
+	public @ResponseBody ServerPageableResponse<List<ProductStock>> listproductstockbycriteria(
 			@RequestBody ViewProduct product) {
-		Product dbProduct = new Product();
+		ProductStock dbProduct = new ProductStock();
 		BeanUtils.copyProperties(product, dbProduct);
 
-		ServerPageableResponse<List<Product>> serverResp = new ServerPageableResponse<List<Product>>();
+		ServerPageableResponse<List<ProductStock>> serverResp = new ServerPageableResponse<List<ProductStock>>();
 
-		BizPageableResponse<List<Product>> bizResp = bizProductService.listProductByCriteria(dbProduct,
+		BizPageableResponse<List<ProductStock>> bizResp = bizProductStockService.listProductStockByCriteria(dbProduct,
 				product.getPageIndex(), product.getPageSize());
 
 		serverResp.setData(bizResp.getData());

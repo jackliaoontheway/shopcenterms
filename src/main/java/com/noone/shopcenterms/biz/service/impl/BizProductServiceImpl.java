@@ -15,7 +15,6 @@ import com.noone.shopcenterms.common.basemodel.BizPageableResponse;
 import com.noone.shopcenterms.common.basemodel.BizResponse;
 import com.noone.shopcenterms.domain.Product;
 import com.noone.shopcenterms.domain.ProductRepository;
-import com.noone.shopcenterms.domain.ProductStock;
 import com.noone.shopcenterms.domain.QProduct;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
