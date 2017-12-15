@@ -15,7 +15,6 @@ import com.noone.shopcenterms.common.basemodel.BizPageableResponse;
 import com.noone.shopcenterms.common.basemodel.BizResponse;
 import com.noone.shopcenterms.domain.ProductStock;
 import com.noone.shopcenterms.domain.ProductStockRepository;
-import com.noone.shopcenterms.domain.QProduct;
 import com.noone.shopcenterms.domain.QProductStock;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -88,13 +87,13 @@ public class BizProductStockServiceImpl implements BizProductStockService {
 
 		BooleanExpression predicate = null;
 		if (!StringUtils.isNullOrEmpty(criteria.getSku())) {
-			predicate = QProduct.product.sku.like("%" + criteria.getSku() + "%");
+			predicate = QProductStock.productStock.sku.like("%" + criteria.getSku() + "%");
 		}
 		if (!StringUtils.isNullOrEmpty(criteria.getName())) {
 			if (predicate == null) {
-				predicate = QProduct.product.name.like("%" + criteria.getName() + "%");
+				predicate = QProductStock.productStock.name.like("%" + criteria.getName() + "%");
 			} else {
-				predicate.and(QProduct.product.name.like("%" + criteria.getName() + "%"));
+				predicate.and(QProductStock.productStock.name.like("%" + criteria.getName() + "%"));
 			}
 		}
 
