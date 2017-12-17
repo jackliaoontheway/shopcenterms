@@ -77,7 +77,7 @@ public class BizProductServiceImpl implements BizProductService {
 		ProductLabel productLabel = new ProductLabel();
 		BeanUtils.copyProperties(product, productLabel);
 		productLabel.setPrice(price);
-		productLabel.setProduceDate(produceDate);
+		productLabel.setProduceDate(produceDate == null ? "" :  produceDate);
 		String path = ProductLabelFactory.getInstance().createProductLabel(productLabel, count, "C:/labels");
 		bizResp.setData(path);
 		return bizResp;

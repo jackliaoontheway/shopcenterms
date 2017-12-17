@@ -65,7 +65,7 @@ public class ProductController extends BaseController {
 		ProductStock dbProductStock = new ProductStock();
 		dbProductStock.setSku(viewProduct.getSku());
 		dbProductStock.setName(viewProduct.getName());
-		dbProductStock.setProduceDate(viewProduct.getProduceDate());
+		dbProductStock.setProduceDate(viewProduct.getProduceDate() == null ? "" :  viewProduct.getProduceDate());
 		dbProductStock.setPrice(viewProduct.getPrice());
 
 		BizResponse<Boolean> bizResp = bizProductStockService.addProductStock(dbProductStock,
