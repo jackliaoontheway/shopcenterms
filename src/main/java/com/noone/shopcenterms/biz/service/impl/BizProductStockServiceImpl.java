@@ -74,9 +74,10 @@ public class BizProductStockServiceImpl implements BizProductStockService {
 	}
 
 	private Boolean checkRFIDisExisted(String rfid) {
-		Predicate predicate = QProductStock.productStock.rfid.eq(rfid);
-		Iterable<ProductStock> productStock = productStockRepository.findAll(predicate);
-		return (productStock != null && productStock.iterator().hasNext());
+		return false;
+//		Predicate predicate = QProductStock.productStock.rfid.eq(rfid);
+//		Iterable<ProductStock> productStock = productStockRepository.findAll(predicate);
+//		return (productStock != null && productStock.iterator().hasNext());
 	}
 
 	@Override

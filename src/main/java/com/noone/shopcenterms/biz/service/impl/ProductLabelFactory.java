@@ -1,16 +1,14 @@
 package com.noone.shopcenterms.biz.service.impl;
 
-import java.awt.Color;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Rectangle;
@@ -41,6 +39,8 @@ public class ProductLabelFactory {
 		try {
 			File tempFile = File.createTempFile("product", ".pdf", new File(path));
 			fileName = tempFile.getName();
+//			generatePDF(productlabel,count, tempFile.getAbsolutePath(),
+//					new Rectangle(Float.parseFloat("1288.5"), Float.parseFloat("1198.45")));
 			generatePDF(productlabel,count, tempFile.getAbsolutePath(),
 					new Rectangle(Float.parseFloat("288.5"), Float.parseFloat("198.45")));
 		} catch (IOException e) {
@@ -62,21 +62,29 @@ public class ProductLabelFactory {
 			
 			PdfPTable table = new PdfPTable(1); // 1 columns.
             table.setWidthPercentage(100); // Width 100%
-            table.setSpacingBefore(0f); // Space before table
-            table.setSpacingAfter(0f);
 
 			for (int i =0; i < count; i ++) {
 				
 				Paragraph paragraph = getParagraph(productLabel);
 				
-				PdfPCell cell1 = new PdfPCell(paragraph);
+				PdfPCell cell1 = new PdfPCell();
 				cell1.setBorderColor(new BaseColor(255, 255, 255));
+				cell1.setFixedHeight(200);
+				
 //				cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
 //	            cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell1.addElement(paragraph);
+				
+				Image twoDBarcode = Image.getInstance("C:\\projects\\shopcenterms\\src\\main\\resources\\img\\2Dcode.jpg");
+				twoDBarcode.scaleToFit(60,60);
+				twoDBarcode.setAlignment(Image.RIGHT);
+				
+				cell1.addElement(twoDBarcode);
 				
 				table.addCell(cell1);
 				
 			}
+			
 			document.add(table);
 
 		} catch (Exception e) {
@@ -99,23 +107,23 @@ public class ProductLabelFactory {
 		
 		
 		Paragraph paragraph = new Paragraph();
-		Chunk chunk0 = new Chunk(" 产品名称: " +productLabel.getName() +"\n\n");
+		Chunk chunk0 = new Chunk(" 产品名称: " +productLabel.getName() +"\n");
 		chunk0.setFont(fontHead);
 		paragraph.add(chunk0);
 		
-		Chunk chunk1 = new Chunk(" 产品主成分: " +productLabel.getComposition() +"\n\n");
+		Chunk chunk1 = new Chunk(" 产品主成分: " +productLabel.getComposition() +"\n");
 		chunk1.setFont(font);
 		paragraph.add(chunk1);
 		
-		Chunk chunk2 = new Chunk(" 生产日期: " +productLabel.getProduceDate() +"\n\n");
+		Chunk chunk2 = new Chunk(" 生产日期: " +productLabel.getProduceDate() +"\n");
 		chunk2.setFont(font);
 		paragraph.add(chunk2);
 		
-		Chunk chunk3 = new Chunk(" 尝鲜期: " +productLabel.getExpiredDate() +"\n\n");
+		Chunk chunk3 = new Chunk(" 尝鲜期: " +productLabel.getExpiredDate() +"\n");
 		chunk3.setFont(font);
 		paragraph.add(chunk3);
 		
-		Chunk chunk4 = new Chunk(" 生产商: " +productLabel.getProduceCompany() +"\n\n");
+		Chunk chunk4 = new Chunk(" 生产商: " +productLabel.getProduceCompany() +"\n");
 		chunk4.setFont(font);
 		paragraph.add(chunk4);
 		
@@ -123,9 +131,9 @@ public class ProductLabelFactory {
 		chunk5.setFont(font);
 		paragraph.add(chunk5);
 		
-		Chunk chunk6 = new Chunk(" 拎包加盟热线: " +productLabel.getCompanyMobile() +"\n\n");
-		chunk6.setFont(font);
-		paragraph.add(chunk6);
+//		Chunk chunk6 = new Chunk(" 拎包加盟热线: " +productLabel.getCompanyMobile() +"\n\n");
+//		chunk6.setFont(font);
+//		paragraph.add(chunk6);
 		
 		Chunk chunk7 = new Chunk(" 售价 ￥  " +productLabel.getPrice());
 		chunk7.setFont(fontHead);
