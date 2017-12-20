@@ -14,6 +14,8 @@ public class ViewProduct {
 	private String companyCode;
 	private String price;
 	private String expiredDate;
+	private String produceAddress;
+	
 	
 	private String produceDate;
 	private Integer labelCount;

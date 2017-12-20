@@ -69,14 +69,14 @@ public class ProductLabelFactory {
 				
 				PdfPCell cell1 = new PdfPCell();
 				cell1.setBorderColor(new BaseColor(255, 255, 255));
-				cell1.setFixedHeight(200);
+//				cell1.setFixedHeight(200);
 				
 //				cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
 //	            cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell1.addElement(paragraph);
 				
 				Image twoDBarcode = Image.getInstance("C:\\projects\\shopcenterms\\src\\main\\resources\\img\\2Dcode.jpg");
-				twoDBarcode.scaleToFit(60,60);
+				twoDBarcode.scaleToFit(50,50);
 				twoDBarcode.setAlignment(Image.RIGHT);
 				
 				cell1.addElement(twoDBarcode);
@@ -111,29 +111,33 @@ public class ProductLabelFactory {
 		chunk0.setFont(fontHead);
 		paragraph.add(chunk0);
 		
-		Chunk chunk1 = new Chunk(" 产品主成分: " +productLabel.getComposition() +"\n");
-		chunk1.setFont(font);
-		paragraph.add(chunk1);
-		
-		Chunk chunk2 = new Chunk(" 生产日期: " +productLabel.getProduceDate() +"\n");
-		chunk2.setFont(font);
-		paragraph.add(chunk2);
-		
-		Chunk chunk3 = new Chunk(" 尝鲜期: " +productLabel.getExpiredDate() +"\n");
-		chunk3.setFont(font);
-		paragraph.add(chunk3);
+//		Chunk chunk1 = new Chunk(" 产品主成分: " +productLabel.getComposition() +"\n");
+//		chunk1.setFont(font);
+//		paragraph.add(chunk1);
 		
 		Chunk chunk4 = new Chunk(" 生产商: " +productLabel.getProduceCompany() +"\n");
 		chunk4.setFont(font);
 		paragraph.add(chunk4);
 		
-		Chunk chunk5 = new Chunk(" 食品经营许可证: " +productLabel.getCompanyCode() +"\n\n");
+		Chunk chunk5 = new Chunk(" 食品经营许可证: " +productLabel.getCompanyCode() +"\n");
 		chunk5.setFont(font);
 		paragraph.add(chunk5);
 		
-//		Chunk chunk6 = new Chunk(" 拎包加盟热线: " +productLabel.getCompanyMobile() +"\n\n");
-//		chunk6.setFont(font);
-//		paragraph.add(chunk6);
+		Chunk chunk6 = new Chunk(" 地址: " +productLabel.getProduceAddress() +"\n");
+		chunk6.setFont(font);
+		paragraph.add(chunk6);
+		
+		Chunk chunk8 = new Chunk(" 拎包加盟热线: " +productLabel.getCompanyMobile() +"\n");
+		chunk8.setFont(font);
+		paragraph.add(chunk8);
+		
+		Chunk chunk3 = new Chunk(" 保质期: " +productLabel.getExpiredDate() +"\n");
+		chunk3.setFont(font);
+		paragraph.add(chunk3);
+		
+		Chunk chunk2 = new Chunk(" 生产日期: " +productLabel.getProduceDate() +"\n\n");
+		chunk2.setFont(font);
+		paragraph.add(chunk2);
 		
 		Chunk chunk7 = new Chunk(" 售价 ￥  " +productLabel.getPrice());
 		chunk7.setFont(fontHead);

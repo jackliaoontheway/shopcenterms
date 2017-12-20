@@ -19,6 +19,7 @@ public class Product {
 	private String companyCode;
 	private String price;
 	private String expiredDate;
+	private String produceAddress;
 	
 
 	// -------------Auto generated start (Mon Dec 04 22:56:32 CST 2017)-------------//

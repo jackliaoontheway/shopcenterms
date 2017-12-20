@@ -14,4 +14,5 @@ public class ProductLabel {
 	private String price;
 	private String expiredDate;
 	private String produceDate;
+	private String produceAddress;
 }
