@@ -24,7 +24,7 @@ import com.rfid.reader.RFIDfactory;
 public class BizProductStockServiceImpl implements BizProductStockService {
 
 	@Autowired
-	ProductStockRepository productStockRepository;
+	private ProductStockRepository productStockRepository;
 
 	@Override
 	public BizResponse<Boolean> addProductStock(ProductStock product, Integer labelCount) {
@@ -74,10 +74,9 @@ public class BizProductStockServiceImpl implements BizProductStockService {
 	}
 
 	private Boolean checkRFIDisExisted(String rfid) {
-		return false;
-//		Predicate predicate = QProductStock.productStock.rfid.eq(rfid);
-//		Iterable<ProductStock> productStock = productStockRepository.findAll(predicate);
-//		return (productStock != null && productStock.iterator().hasNext());
+		Predicate predicate = QProductStock.productStock.rfid.eq(rfid);
+		Iterable<ProductStock> productStock = productStockRepository.findAll(predicate);
+		return (productStock != null && productStock.iterator().hasNext());
 	}
 
 	@Override

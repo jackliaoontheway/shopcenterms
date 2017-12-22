@@ -2,11 +2,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
+	<version>1.0.0</version>
 	<groupId>com.noone</groupId>
 	<artifactId>shopcenterms</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
 
 	<name>shopcenterms</name>
 	<description>shopcenterms project for Spring Boot</description>
@@ -63,28 +61,38 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.noone</groupId>
-			<artifactId>shopcenterms</artifactId>
-			<version>2.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/rfidreader.jar</systemPath>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itextpdf</artifactId>
+			<version>5.0.6</version>
 		</dependency>
-		
+
 		<dependency>
-		    <groupId>com.itextpdf</groupId>
-		    <artifactId>itextpdf</artifactId>
-		    <version>5.0.6</version>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itext-asian</artifactId>
+			<version>5.2.0</version>
 		</dependency>
-		
-		<dependency>  
-            <groupId>com.itextpdf</groupId>  
-            <artifactId>itext-asian</artifactId>  
-            <version>5.2.0</version>  
-        </dependency>  
+		<dependency>
+			<groupId>com.noone</groupId>
+			<artifactId>com.noone.paymentms</artifactId>
+			<version>2.0</version>
+		</dependency>
+
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.noone</groupId> -->
+<!-- 			<artifactId>paymentms</artifactId> -->
+<!-- 			<version>2.0</version> -->
+<!-- 			<scope>system</scope> -->
+<!-- 			<systemPath>${project.basedir}/lib/rfidreader.jar</systemPath> -->
+<!-- 		</dependency> -->
+
 	</dependencies>
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
 			<plugin>
 				<groupId>com.mysema.maven</groupId>
 				<artifactId>apt-maven-plugin</artifactId>
@@ -103,6 +111,7 @@
 			</plugin>
 		</plugins>
 	</build>
+
 
 
 </project>
