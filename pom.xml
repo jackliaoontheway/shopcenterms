@@ -6,7 +6,7 @@
 	<groupId>com.noone</groupId>
 	<artifactId>shopcenterms</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>shopcenterms</name>
 	<description>shopcenterms project for Spring Boot</description>

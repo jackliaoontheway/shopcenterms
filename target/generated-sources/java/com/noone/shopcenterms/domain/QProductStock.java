@@ -39,6 +39,8 @@ public class QProductStock extends EntityPathBase<ProductStock> {
 
     public final StringPath sku = createString("sku");
 
+    public final StringPath status = createString("status");
+
     public QProductStock(String variable) {
         super(ProductStock.class, forVariable(variable));
     }

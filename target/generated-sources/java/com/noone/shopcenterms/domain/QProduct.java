@@ -41,6 +41,8 @@ public class QProduct extends EntityPathBase<Product> {
 
     public final StringPath price = createString("price");
 
+    public final StringPath produceAddress = createString("produceAddress");
+
     public final StringPath produceCompany = createString("produceCompany");
 
     public final StringPath sku = createString("sku");
