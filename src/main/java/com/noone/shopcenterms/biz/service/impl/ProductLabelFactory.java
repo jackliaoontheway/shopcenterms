@@ -42,7 +42,7 @@ public class ProductLabelFactory {
 //			generatePDF(productlabel,count, tempFile.getAbsolutePath(),
 //					new Rectangle(Float.parseFloat("1288.5"), Float.parseFloat("1198.45")));
 			generatePDF(productlabel,count, tempFile.getAbsolutePath(),
-					new Rectangle(Float.parseFloat("288.5"), Float.parseFloat("198.45")));
+					new Rectangle(Float.parseFloat("178.45"), Float.parseFloat("178.45")));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -75,12 +75,12 @@ public class ProductLabelFactory {
 //	            cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell1.addElement(paragraph);
 				
-				Image twoDBarcode = Image.getInstance("C:\\projects\\shopcenterms\\src\\main\\resources\\img\\2Dcode.jpg");
-				twoDBarcode.scaleToFit(50,50);
-				twoDBarcode.setAlignment(Image.RIGHT);
-				
-				cell1.addElement(twoDBarcode);
-				
+//				Image twoDBarcode = Image.getInstance("C:\\projects\\shopcenterms\\src\\main\\resources\\img\\2Dcode.jpg");
+//				twoDBarcode.scaleToFit(50,50);
+//				twoDBarcode.setAlignment(Image.RIGHT);
+//				
+//				cell1.addElement(twoDBarcode);
+//				
 				table.addCell(cell1);
 				
 			}
@@ -99,15 +99,16 @@ public class ProductLabelFactory {
 		
 		BaseFont bf = BaseFont.createFont( "C://Windows//Fonts//simsun.ttc,1" , BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 		Font fontHead = new Font(bf);  
-		fontHead.setSize(16f);
-		fontHead.setStyle("Blod");
+		fontHead.setSize(10f);
+		fontHead.setStyle(Font.BOLD);
 		
 		Font font = new Font(bf);  
-		font.setSize(10f);
+		font.setSize(8f);
+		font.setStyle(Font.BOLD);
 		
 		
 		Paragraph paragraph = new Paragraph();
-		Chunk chunk0 = new Chunk(" 产品名称: " +productLabel.getName() +"\n");
+		Chunk chunk0 = new Chunk("  "+productLabel.getName() +"\n");
 		chunk0.setFont(fontHead);
 		paragraph.add(chunk0);
 		
